@@ -1,4 +1,8 @@
+import { Button, Checkbox, FormControlLabel, FormGroup, IconButton, Link, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { CustomBox, CustomForm, CustomPaper } from "../styles/LoginForm";
 
 function LoginForm() {
   const [email, setEmail] = useState({});
@@ -15,56 +19,71 @@ function LoginForm() {
   const handleSubmit = () => {};
 
   return (
-    <form>
-      <h1>Sign In</h1>
-      <fieldset>
-        <input
-          type="email"
-          name="email"
-          placeholder="Login"
-          value={email.value}
-          onChange={hancleChange}
-        />
-        <br />
-        {email.wasTouched  && email.hasError && <small>{email.error}</small>}
-      </fieldset>
-      <fieldset>
-        <input
-            type={showPassword ? 'text' : 'password'}
-            name="password"
-            placeholder="Password"
-            value={password.value}
-            onChange={hancleChange}
-        />
-        <input
-          type="checkbox"
-          checked={showPassword}
-          onChange={() => setShowPassword(!showPassword)}
-        />
-        <br />
-        {password.wasTouched  && password.hasError && <small>{password.error}</small>}
+    <CustomForm>
+      <CustomPaper elevation={3}>
 
-      </fieldset>
-      <fieldset>
-        <label htmlFor="remember">
-          <input
-            type="checkbox"
+        <Typography variant="h1" component="div" gutterBottom>
+            Sign In
+        </Typography>
+        
+            <TextField
+            variant="outlined"
+            fullWidth
+            label="email"
+            type="email"
+            name="email"
+            placeholder="Login"
+            value={email.value}
+            onChange={hancleChange}
+            helperText={email.wasTouched && email.hasError && email.error}
+            error={email.wasTouched && email.hasError}
+            />        
+            
+            <TextField
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                variant="outlined"
+                fullWidth
+                label="Password"
+                value={password.value}
+                onChange={hancleChange}
+                helperText={email.wasTouched && email.hasError && email.error}
+                error={email.wasTouched && email.hasError}
+                InputProps={{
+                endAdornment: (
+                    <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={ () => setShowPassword(!showPassword)}
+                    >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                )
+                }}
+            />        
+            
+        <CustomBox>
+        <FormGroup>
+            <FormControlLabel
+            control={<Checkbox checked={remember} />}
+            label="Remember me"
             name="remember"
-            id="remember"
-            checked={remember}
             onChange={(e) => setRemember(e.target.checked)}
-          />
-          Remember m    e{' '}
-        </label>
-        <a href="#">Forget password?</a>
-      </fieldset>
-      <button
-        type="button"
-        onClick={handleSubmit}
-      >
-        Login
-      </button>
-    </form>
+            />
+        
+        </FormGroup>        
+            <Link href="#">Forget password?</Link>
+        </CustomBox>
+
+        <Button
+            variant="contained"
+            type="button"
+            onClick={handleSubmit}
+        >
+            Login
+        </Button>
+      </CustomPaper>
+      
+    </CustomForm>
   )
 }
 
