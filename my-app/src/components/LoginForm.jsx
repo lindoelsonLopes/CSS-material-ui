@@ -1,8 +1,8 @@
-import { Button, Checkbox, FormControlLabel, FormGroup, IconButton, Link, TextField, Typography } from "@mui/material";
+import { Button, Checkbox, FormControlLabel, FormGroup, IconButton, Link, Typography } from "@mui/material";
 import React, { useState } from "react";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { CustomBox, CustomForm, CustomPaper } from "../styles/LoginForm";
+import { CustomBox, CustomForm, CustomPaper, CustomStack, CustomTextField } from "../styles/LoginForm";
 
 function LoginForm() {
   const [email, setEmail] = useState({
@@ -65,65 +65,69 @@ function LoginForm() {
     <CustomForm>
       <CustomPaper elevation={3}>
 
-        <Typography variant="h1" component="div" gutterBottom>
-            Sign In
-        </Typography>
-        
-            <TextField
-            variant="outlined"
-            fullWidth
-            label="email"
-            type="email"
-            name="email"
-            placeholder="Login"
-            value={email.value}
-            onChange={hancleChange}
-            helperText={email.wasTouched && email.hasError && email.error}
-            error={email.wasTouched && email.hasError}
-            />        
-            
-            <TextField
-                type={showPassword ? 'text' : 'password'}
-                name="password"
-                variant="outlined"
-                fullWidth
-                label="Password"
-                value={password.value}
-                onChange={hancleChange}
-                helperText={email.wasTouched && email.hasError && email.error}
-                error={email.wasTouched && email.hasError}
-                InputProps={{
-                endAdornment: (
-                    <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={ () => setShowPassword(!showPassword)}
-                    >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                )
-                }}
-            />        
-            
-        <CustomBox>
-        <FormGroup>
-            <FormControlLabel
-            control={<Checkbox checked={remember} />}
-            label="Remember me"
-            name="remember"
-            onChange={(e) => setRemember(e.target.checked)}
-            />
-        
-        </FormGroup>        
-            <Link href="#">Forget password?</Link>
-        </CustomBox>
+        <CustomStack spacing={3}>
+          <Typography variant="h1" component="div" gutterBottom>
+              Sign In
+          </Typography>
+              <CustomTextField
+              variant="outlined"
+              fullWidth
+              label="email"
+              type="email"
+              name="email"
+              placeholder="Login"
+              value={email.value}
+              onChange={hancleChange}
+              helperText={email.wasTouched && email.hasError && email.error}
+              error={email.wasTouched && email.hasError}
+              />        
+              
+              <CustomTextField
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  variant="outlined"
+                  fullWidth
+                  label="Password"
+                  value={password.value}
+                  onChange={hancleChange}
+                  helperText={email.wasTouched && email.hasError && email.error}
+                  error={email.wasTouched && email.hasError}
+                  InputProps={{
+                  endAdornment: (
+                      <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={ () => setShowPassword(!showPassword)}
+                      color="primary"
+                      >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                  )
+                  }}
+              />        
+              
+          <CustomBox>
+          <FormGroup>
+              <FormControlLabel
+              control={<Checkbox color="default" checked={remember} />}
+              label="Remember me"
+              name="remember"
+              onChange={(e) => setRemember(e.target.checked)}
+              />
+          
+          </FormGroup>        
+              <Link href="#">Forget password?</Link>
+          </CustomBox>
 
-        <Button
-            variant="contained"
-            type="button"
-            onClick={handleSubmit}
-        >
-            Login
-        </Button>
+          <Button
+              variant="contained"
+              type="button"
+              fullWidth
+              onClick={handleSubmit}
+              sx={{ padding: "0.9rem", fontSize: '1.2rem'}}
+          >
+              Login
+          </Button>
+        </CustomStack>
       </CustomPaper>
       
     </CustomForm>
