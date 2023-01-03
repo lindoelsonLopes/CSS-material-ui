@@ -5,18 +5,61 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { CustomBox, CustomForm, CustomPaper } from "../styles/LoginForm";
 
 function LoginForm() {
-  const [email, setEmail] = useState({});
-  const [password, setPassword] = useState({});
+  const [email, setEmail] = useState({
+    value: '',
+    error: '',
+    hasError: true,
+    wasTouched: false,
+  });
+  const [password, setPassword] = useState({
+    value: '',
+    error: '',
+    hasError: true,
+    wasTouched: false,
+  });
   const [showPassword, setShowPassword] = useState(false);
   const [remember, setRemember] = useState(false);
 
-  const validateEmail = (email) => {};
+  const validateEmail = (email) => {
+    const emailRegex = /^(.+)@(.+)$/;
+    return emailRegex.test(email);
+  };
 
-  const validatePassword = (password) => {};
+  const validatePassword = (password) => {
+    if (password.length < 6) {
+      return false;
+    }
+    return true;
+  };
 
-  const hancleChange = (event) => {};
+  const hancleChange = (event) => {
+    const { name, value } = event.target;
+    if (name === 'email') {
+      const isEmailValid = validateEmail(value);
+      setEmail({
+        value,
+        error: !isEmailValid ? 'Enter a valid email' : '',
+        hasError: !isEmailValid,
+        wasTouched: true,
+      });
+    } else if (name === 'password') {
+      const isPasswordValid = validatePassword(value);
+      setPassword({
+        value,
+        error: !isPasswordValid ? 'Password must be at least 6 characters' : '',
+        hasError: !isPasswordValid,
+        wasTouched: true,
+      });
+    }
+  };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    if (email.hasError || password.hasError) {
+      alert('Please fix the errors');
+    } else {
+      alert('Login successful');
+    }
+  };
 
   return (
     <CustomForm>
